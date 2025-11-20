@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Web Page</title>
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+/* --- small reset + fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+:root{--bg:#1f242d;--card:#1c2331;--muted:#bbb;--main:#0ef;--accent:#00eaff}
+html{font-size:62.5%}
+body{background:var(--bg);color:#fff}
+
+
+/* header */
+.header{position:fixed;top:0;left:0;width:100%;padding:2rem 6%;display:flex;justify-content:space-between;align-items:center;background:var(--bg);z-index:1000}
+.logo{font-size:2.2rem;font-weight:700}
+.navbar a{color:#fff;margin-left:3.2rem;font-size:1.6rem}
+.navbar a.active{color:var(--main)}
+
+
+/* home */
+section{min-height:100vh;padding:12rem 6rem 4rem}
+.home{display:flex;gap:4rem;align-items:center;flex-wrap:wrap}
+.home-content{flex:1;min-width:280px}
+.home-img{flex:1;min-width:280px;display:flex;justify-content:flex-end}
+.profile-circle img{width:30rem;height:30rem;border-radius:50%;object-fit:cover;border:4px solid var(--main)}
+
+
+h1{font-size:4.2rem}
+h2{font-size:2.2rem;margin:1.2rem 0}
+h3{font-size:1.9rem;color:var(--main)}
+p{color:var(--muted);font-size:1.6rem}
+
+
+/* typing */
+.typing-line{display:inline-block;position:relative}
+.typed-text{border-right:3px solid rgba(14,238,255,0.9);padding-right:0.6rem;white-space:nowrap}
+
+
+/* certificates / portfolio simple styles (kept short) */
+.heading{font-size:3.4rem;text-align:center;margin-bottom:3.2rem}
+.timeline{margin-top:3rem}
+
+
+/* auto-scroll helper: smooth behaviour handled by CSS */
+html{scroll-behavior:smooth}
+
+
+/* small responsive */
+@media(max-width:760px){
+h1{font-size:3rem}
+.profile-circle img{width:22rem;height:22rem}
+.navbar{display:none}
+section{padding-top:10rem}
+}
+
+
+</style>
+
+<body>
+
+    <header class="header">
+        <a href="#" class="logo">DARSHAN SHAH</a>
+
+        <i class='bxr  bx-menu' id="menu-icon"></i>
+
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+             <a href="#certificates">Certificates</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="theme-toggle" id="theme-toggle">
+    <i class='bx bx-moon' id="theme-icon"></i>
+</div>
+
+    </header>
+    <!--home section -->
+    <section class="home fade-in" id="home">
+        <div class="home-content">
+            <h3>Hello, I'm</h3>
+            <h1>DARSHAN SHAH</h1>
+            <h1>And I'm a <span class="typing-line"><span id="typed" class="typed-text"></span></span></h1>
+
+            <p>At Fr. Conceicao Rodrigues College of Engineering </p>
+            <div class="social-media">
+                <a href="https://www.instagram.com/darshanshah7498/"><i class='bx bxl-instagram-alt'></i></a>
+                <a href="https://www.linkedin.com/in/darshan-shah-48b512374/"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://github.com/darshan-200710"><i class='bx bxl-github'></i></a>
+            </div>
+        </div>
+
+        <div class="home-img">
+            <div class="profile-circle">
+                <img src="picsart.jpg" alt="">
+            </div>
+        </div>
+    </section>
+
+    <!--    About section -->
+  <section class="about face-in" id="about">
+    <h2 class="heading">About <span>Me</span></h2>
+        <div class="about-content">
+           
+            <h2 align = "center">I am a dedicated and passionate software engineering student with a strong foundation in programming and problem-solving skills. I am eager to apply my knowledge and contribute to innovative projects in the tech industry.</h2>
+           
+      </div>
+
+    <div class="timeline">
+
+        <div class="timeline-item left">
+            <div class="timeline-content">
+                <h1>Bachelor's Degree</h1>
+                <h2>Computer Science<br>Fr.CRCE, Mumbai<br>2025-2029</h2>
+            </div>
+        </div>
+
+        <div class="timeline-item right">
+            <div class="timeline-content">
+                <h1>Higher Secondary</h1>
+                <h2>Science<br>Nirmala College of Science, Kandivali<br>2025</h2>
+            </div>
+        </div>
+
+        <div class="timeline-item left">
+           
+            <div class="timeline-content">
+                <h1>Secondary</h1>
+                <h2>Poornaprajna Education Center, Dahisar<br>2023</h2>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="certificates fade-in" id="certificates">    
+    <h2 class="heading">My <span>Certificates</span></h2>
+    <div class="certificates-container">
+
+        <!-- Image Certificate -->
+        <div class="certificate-box">
+            <a href="c2.jpeg" target="_blank">
+            <img src="c2.jpeg" alt="Certificate 1">
+            </a>
+            <h3>Certificate Title 1</h3>
+            <p>Brief description of Certificate 1.</p>
+        </div>
+
+        <!-- PDF Certificate (Thumbnail + Link) -->
+        <div class="certificate-box">
+            <a href="mahi.jpg" target="_blank">
+                <img src="mahi.jpg" alt="Certificate 2 Thumbnail">
+            </a>
+            <h3>FINANCIAL LITERCAY BY TECH MAHINDRA</h3>
+            <p>Brief description of Certificate 2.</p>
+        </div>
+
+        <!-- Another Image Certificate -->
+        <div class="certificate-box">
+            <a href="word.jpg" target="_blank">
+            <img src="word.jpg" alt="Certificate 3 Thumbnail">
+            </a>
+            <h3>BUILD WEBSITE BY WORD PRESS</h3>
+            <p>Brief description of Certificate 3.</p>
+        </div>
+
+        <!-- Another PDF Certificate -->
+        <div class="certificate-box">
+            <a href="canva.jpg" target="_blank">
+                <img src="canva.jpg" alt="Certificate 4 Thumbnail">
+            </a>
+            <h3>CANVA DIGITAL DESIGN </h3>
+            <p>Brief description of Certificate 4.</p>
+        </div>
+                <div class="certificate-box">
+            <a href="aws.png" target="_blank">
+            <img src="aws.png" alt="Certificate 5 Thumbnail">
+            </a>
+            <h3>AWS COMPUTE SERVICE</h3>
+            <p>Brief description of Certificate 3.</p>
+        </div>
+         <div class="certificate-box">
+            <a href="gen.jpg" target="_blank">
+            <img src="gen.jpg" alt="Certificate 5 Thumbnail">
+            </a>
+            <h3>GOOGLE GEN AI</h3>
+            <p>Brief description of Certificate 3.</p>
+        </div>
+        <div class="certificate-box">
+            <a href="sebi.jpg" target="_blank">
+            <img src="sebi.jpg" alt="Certificate 5 Thumbnail">
+            </a>
+            <h3>SEBI</h3>
+            <p>Brief description of Certificate 3.</p>
+        </div>
+
+
+    </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+  <h2 class="heading">My <span>Portfolio</span></h2>
+
+  <div class="portfolio-container">
+
+    <div class="portfolio-box">
+        <a href="img2.jpg" target="_blank">
+        <img src="img2.jpg" alt="Project 1">
+        <h3>PAGODA</h3>
+        </a>
+    </div>
+
+    <div class="portfolio-box">
+        <a href="img3.jpg" target="_blank">
+        <img src="img3.jpg" alt="Project 2">
+        <h3>ATAL BRIDGE</h3>
+        </a>
+    </div>
+
+    <div class="portfolio-box">
+        <a href="img4.jpg" target="_blank">
+        <img src="img4.jpg" alt="Project 3">
+        <h3>LD MUSEUM</h3>
+        <p>AHMEDABAD</p>
+        </a>
+    </div>
+
+    <div class="portfolio-box">
+        <a href="img1.jpg" target="_blank">
+        <img src="img1.jpg" alt="Project 4">
+        <h3>TRAVEL BANNER</h3>
+        </a>
+    </div>
+
+  </div>
+</section>
+
+
+
+    <!-- contact section -->
+     <section class="contact fade-in" id="contact">
+    <h2 class="heading">Contact <span>Me !</span></h2>
+
+    <form id="contactForm" action="https://formspree.io/f/xyzlanao" method="POST">
+
+        <div class="input-box">
+            <input type="input" name="name" placeholder="Full Name" required>
+            <input type="input" name="email" placeholder="Email Address" required>
+        </div>
+
+        <div class="input-box">
+            <input type="input" name="phone" placeholder="Phone Number" required>
+            <input type="input" name="subject" placeholder="Email Subject" required>
+        </div>
+
+        <textarea name="message" placeholder="Your Message" required></textarea>
+
+        <input type="submit" value="Send Message" class="btn">
+        <p id="form-status"></p>
+    </form>
+</section>
+
+   <script>
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault(); // stop redirect
+
+    const form = e.target;
+    const status = document.getElementById("form-status");
+    const data = new FormData(form);
+
+    status.innerHTML = "Sending...";
+
+    const response = await fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+    });
+
+    if (response.ok) {
+        status.innerHTML = "Message sent successfully ✔";
+        status.style.color = "#0ef";
+        form.reset();
+    } else {
+        status.innerHTML = "Something went wrong ❌";
+        status.style.color = "red";
+    }
+});
+</script>
+<script src="script.js"></script>
+
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-social">
+        <a href="https://www.instagram.com/darshanshah7498/" target="_blank"><i class='bx bxl-instagram'></i></a>
+        <a href="https://www.linkedin.com/in/darshan-shah-48b512374/" target="_blank"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://github.com/darshan-200710" target="_blank"><i class='bx bxl-github'></i></a>
+    </div>
+
+    <p>© 2025 Darshan Shah | All Rights Reserved.</p>
+</footer>
+
+
+</body>
+
+</html>
