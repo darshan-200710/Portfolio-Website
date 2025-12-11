@@ -133,65 +133,103 @@ toggleBtn.addEventListener("click", () => {
 // ------------------------------------
 //    CUSTOM CURSOR ANIMATION
 // ------------------------------------
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
+function initCustomCursor() {
+  const cursor = document.querySelector('.cursor');
+  const cursorFollower = document.querySelector('.cursor-follower');
 
-let mouseX = 0;
-let mouseY = 0;
-let followerX = 0;
-let followerY = 0;
+  // Check if cursor elements exist
+  if (!cursor || !cursorFollower) {
+    console.warn('Cursor elements not found');
+    return; // Exit if elements don't exist
+  }
 
-// Update cursor position
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+  // Hide cursor on mobile devices immediately
+  if (window.innerWidth <= 768) {
+    cursor.style.display = 'none';
+    cursorFollower.style.display = 'none';
+    document.body.style.cursor = 'auto';
+    return;
+  }
 
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let followerX = mouseX;
+  let followerY = mouseY;
+
+  // Initialize cursor positions to center of screen
   cursor.style.left = mouseX + 'px';
   cursor.style.top = mouseY + 'px';
-});
-
-// Smooth follower animation
-function animateFollower() {
-  followerX += (mouseX - followerX) * 0.1;
-  followerY += (mouseY - followerY) * 0.1;
-
   cursorFollower.style.left = followerX + 'px';
   cursorFollower.style.top = followerY + 'px';
 
-  requestAnimationFrame(animateFollower);
+  // Update cursor position
+  const handleMouseMove = (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  };
+
+  document.addEventListener('mousemove', handleMouseMove);
+
+  // Smooth follower animation
+  function animateFollower() {
+    followerX += (mouseX - followerX) * 0.1;
+    followerY += (mouseY - followerY) * 0.1;
+
+    cursorFollower.style.left = followerX + 'px';
+    cursorFollower.style.top = followerY + 'px';
+
+    requestAnimationFrame(animateFollower);
+  }
+  animateFollower();
+
+  // Hover effects on interactive elements
+  const interactiveElements = document.querySelectorAll('a, button, .btn, .social-media a, .navbar a, .portfolio-box, .certificate-box, input, textarea, .theme-toggle');
+
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.classList.add('hover');
+      cursorFollower.classList.add('hover');
+    });
+
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('hover');
+      cursorFollower.classList.remove('hover');
+    });
+  });
+
+  // Click effect
+  document.addEventListener('click', () => {
+    cursor.style.transform = 'scale(0.8)';
+    cursorFollower.style.transform = 'scale(0.8)';
+    setTimeout(() => {
+      cursor.style.transform = '';
+      cursorFollower.style.transform = '';
+    }, 100);
+  });
+
+  // Update cursor position on window resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768) {
+      cursor.style.display = 'none';
+      cursorFollower.style.display = 'none';
+      document.body.style.cursor = 'auto';
+    } else {
+      cursor.style.display = '';
+      cursorFollower.style.display = '';
+      document.body.style.cursor = 'none';
+    }
+  });
 }
-animateFollower();
 
-// Hover effects on interactive elements
-const interactiveElements = document.querySelectorAll('a, button, .btn, .social-media a, .navbar a, .portfolio-box, .certificate-box, input, textarea, .theme-toggle');
-
-interactiveElements.forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.classList.add('hover');
-    cursorFollower.classList.add('hover');
-  });
-
-  el.addEventListener('mouseleave', () => {
-    cursor.classList.remove('hover');
-    cursorFollower.classList.remove('hover');
-  });
-});
-
-// Click effect
-document.addEventListener('click', () => {
-  cursor.style.transform = 'scale(0.8)';
-  cursorFollower.style.transform = 'scale(0.8)';
-  setTimeout(() => {
-    cursor.style.transform = '';
-    cursorFollower.style.transform = '';
-  }, 100);
-});
-
-// Hide cursor on mobile devices
-if (window.innerWidth <= 768) {
-  cursor.style.display = 'none';
-  cursorFollower.style.display = 'none';
-  document.body.style.cursor = 'auto';
+// Initialize cursor after DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCustomCursor);
+} else {
+  // DOM is already loaded
+  initCustomCursor();
 }
 
 // ------------------------------------
