@@ -2,9 +2,9 @@
 //   TYPEWRITER (AUTO-TYPING)
 // ------------------------------
 const roles = [
-    "Software Student",
-    "Photographer",
-    "Graphic Designer"
+  "Software Student",
+  "Photographer",
+  "Graphic Designer"
 ];
 
 let typedEl = document.getElementById("typed");
@@ -18,36 +18,36 @@ const DELETING_SPEED = 40;
 const HOLD_TIME = 1500;
 
 function typeLoop() {
-    const current = roles[roleIndex];
+  const current = roles[roleIndex];
 
-    if (typing) {
-        typedEl.textContent = current.substring(0, charIndex + 1);
-        charIndex++;
+  if (typing) {
+    typedEl.textContent = current.substring(0, charIndex + 1);
+    charIndex++;
 
-        if (charIndex === current.length) {
-            typing = false;
-            setTimeout(typeLoop, HOLD_TIME);
-            return;
-        }
-
-        setTimeout(typeLoop, TYPING_SPEED);
-    } else {
-        typedEl.textContent = current.substring(0, charIndex - 1);
-        charIndex--;
-
-        if (charIndex === 0) {
-            typing = true;
-            roleIndex = (roleIndex + 1) % roles.length;
-            setTimeout(typeLoop, 300);
-            return;
-        }
-
-        setTimeout(typeLoop, DELETING_SPEED);
+    if (charIndex === current.length) {
+      typing = false;
+      setTimeout(typeLoop, HOLD_TIME);
+      return;
     }
+
+    setTimeout(typeLoop, TYPING_SPEED);
+  } else {
+    typedEl.textContent = current.substring(0, charIndex - 1);
+    charIndex--;
+
+    if (charIndex === 0) {
+      typing = true;
+      roleIndex = (roleIndex + 1) % roles.length;
+      setTimeout(typeLoop, 300);
+      return;
+    }
+
+    setTimeout(typeLoop, DELETING_SPEED);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    typeLoop();
+  typeLoop();
 });
 
 
@@ -55,21 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
 //    AUTO SCROLL BETWEEN SECTIONS
 // ------------------------------------
 const sections = [
-    "home",
-    "about",
-    "certificates",
-    "portfolio",
-    "contact"
+  "home",
+  "about",
+  "certificates",
+  "portfolio",
+  "contact"
 ].map(id => document.getElementById(id));
 
 let scrollIndex = 0;
 let autoScrollEnabled = true;
 
 function autoScroll() {
-    if (!autoScrollEnabled) return;
+  if (!autoScrollEnabled) return;
 
-    scrollIndex = (scrollIndex + 1) % sections.length;
-    sections[scrollIndex].scrollIntoView({ behavior: "smooth" });
+  scrollIndex = (scrollIndex + 1) % sections.length;
+  sections[scrollIndex].scrollIntoView({ behavior: "smooth" });
 }
 
 // Scroll every 6 seconds
@@ -77,21 +77,21 @@ let scrollInterval = setInterval(autoScroll, 6000);
 
 // If user touches, scrolls, or presses keys — stop auto-scroll
 ["wheel", "touchstart", "keydown", "mousedown"].forEach(event => {
-    window.addEventListener(event, () => {
-        autoScrollEnabled = false;
-        clearInterval(scrollInterval);
-    });
+  window.addEventListener(event, () => {
+    autoScrollEnabled = false;
+    clearInterval(scrollInterval);
+  });
 });
 // ------- Scroll reveal animation -------
 const revealElements = document.querySelectorAll(".fade-in, .timeline-item");
 
 function revealOnScroll() {
-    revealElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-            el.classList.add("show");
-        }
-    });
+  revealElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      el.classList.add("show");
+    }
+  });
 }
 
 window.addEventListener("scroll", revealOnScroll);
@@ -104,20 +104,149 @@ const themeIcon = document.getElementById("theme-icon");
 let savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "light") {
-    document.body.classList.add("light-mode");
-    themeIcon.classList.replace("bx-moon", "bx-sun");
+  document.body.classList.add("light-mode");
+  themeIcon.classList.replace("bx-moon", "bx-sun");
 }
 
 // Toggle theme
 toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
+  // Add animation classes
+  toggleBtn.classList.add("clicked", "pulse");
 
-    if (document.body.classList.contains("light-mode")) {
-        themeIcon.classList.replace("bx-moon", "bx-sun");
-        localStorage.setItem("theme", "light");
-    } else {
-        themeIcon.classList.replace("bx-sun", "bx-moon");
-        localStorage.setItem("theme", "dark");
-    }
+  // Remove animation classes after animation completes
+  setTimeout(() => {
+    toggleBtn.classList.remove("clicked", "pulse");
+  }, 600);
+
+  // Toggle theme
+  document.body.classList.toggle("light-mode");
+
+  if (document.body.classList.contains("light-mode")) {
+    themeIcon.classList.replace("bx-moon", "bx-sun");
+    localStorage.setItem("theme", "light");
+  } else {
+    themeIcon.classList.replace("bx-sun", "bx-moon");
+    localStorage.setItem("theme", "dark");
+  }
 });
 
+// ------------------------------------
+//    CUSTOM CURSOR ANIMATION
+// ------------------------------------
+const cursor = document.querySelector('.cursor');
+const cursorFollower = document.querySelector('.cursor-follower');
+
+let mouseX = 0;
+let mouseY = 0;
+let followerX = 0;
+let followerY = 0;
+
+// Update cursor position
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
+
+// Smooth follower animation
+function animateFollower() {
+  followerX += (mouseX - followerX) * 0.1;
+  followerY += (mouseY - followerY) * 0.1;
+
+  cursorFollower.style.left = followerX + 'px';
+  cursorFollower.style.top = followerY + 'px';
+
+  requestAnimationFrame(animateFollower);
+}
+animateFollower();
+
+// Hover effects on interactive elements
+const interactiveElements = document.querySelectorAll('a, button, .btn, .social-media a, .navbar a, .portfolio-box, .certificate-box, input, textarea, .theme-toggle');
+
+interactiveElements.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('hover');
+    cursorFollower.classList.add('hover');
+  });
+
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hover');
+    cursorFollower.classList.remove('hover');
+  });
+});
+
+// Click effect
+document.addEventListener('click', () => {
+  cursor.style.transform = 'scale(0.8)';
+  cursorFollower.style.transform = 'scale(0.8)';
+  setTimeout(() => {
+    cursor.style.transform = '';
+    cursorFollower.style.transform = '';
+  }, 100);
+});
+
+// Hide cursor on mobile devices
+if (window.innerWidth <= 768) {
+  cursor.style.display = 'none';
+  cursorFollower.style.display = 'none';
+  document.body.style.cursor = 'auto';
+}
+
+// ------------------------------------
+//    NAVIGATION ACTIVE LINK HANDLING
+// ------------------------------------
+const navLinks = document.querySelectorAll('.navbar a');
+
+// Function to set active link
+function setActiveLink(clickedLink) {
+  // Remove active class from all links
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+  });
+
+  // Add active class to clicked link
+  if (clickedLink) {
+    clickedLink.classList.add('active');
+  }
+}
+
+// Add click event listeners to all nav links
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    // Get the href attribute (e.g., "#home", "#about")
+    const href = link.getAttribute('href');
+
+    // Only handle hash links (internal navigation)
+    if (href.startsWith('#')) {
+      // Set this link as active immediately
+      setActiveLink(link);
+    }
+  });
+});
+
+// Update active link based on scroll position
+function updateActiveLinkOnScroll() {
+  const sections = document.querySelectorAll('section[id]');
+  const scrollY = window.pageYOffset;
+
+  sections.forEach(section => {
+    const sectionHeight = section.offsetHeight;
+    const sectionTop = section.offsetTop - 150; // Offset for header
+    const sectionId = section.getAttribute('id');
+    const correspondingLink = document.querySelector(`.navbar a[href="#${sectionId}"]`);
+
+    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+      if (correspondingLink) {
+        setActiveLink(correspondingLink);
+      }
+    }
+  });
+}
+
+// Listen for scroll events
+window.addEventListener('scroll', updateActiveLinkOnScroll);
+
+// Call on page load to set initial active state
+updateActiveLinkOnScroll();
