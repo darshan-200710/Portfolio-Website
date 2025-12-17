@@ -288,3 +288,43 @@ window.addEventListener('scroll', updateActiveLinkOnScroll);
 
 // Call on page load to set initial active state
 updateActiveLinkOnScroll();
+
+// ------------------------------------
+//    LOADING SCREEN
+// ------------------------------------
+(function () {
+  const loader = document.getElementById('loader-wrapper');
+  const body = document.body;
+  const startTime = Date.now();
+  const minDisplayTime = 1800; // Minimum 1.8 seconds
+  const maxDisplayTime = 2500; // Maximum 2.5 seconds
+
+  if (!loader) return;
+
+  // Add loading class to body
+  body.classList.add('loading');
+
+  // Hide loader after optimal time
+  function hideLoader() {
+    const elapsedTime = Date.now() - startTime;
+    const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+
+    setTimeout(() => {
+      loader.classList.add('hidden');
+      body.classList.remove('loading');
+      body.classList.add('loaded');
+
+      // Remove loader from DOM after fade out
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 500);
+    }, remainingTime);
+  }
+
+  // Wait for page to fully load, then hide loader
+  if (document.readyState === 'complete') {
+    hideLoader();
+  } else {
+    window.addEventListener('load', hideLoader);
+  }
+})();
